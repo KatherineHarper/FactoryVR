@@ -7,13 +7,26 @@ namespace VRFP
 {
     public class NewTestScript
     {
-        // A Test behaves as an ordinary method
+       
         [Test]
-        public void NewTestScriptSimplePasses()
+        public void TestJasonList()
         {
-            // Use the Assert class to test conditions
+            JsonList jsonList = new JsonList();
+            //Assert the jasonList is not null
+            List<string> list = jsonList.SearchName();
+            
+            Assert.IsNotNull(list);
+        }
 
-            //MainManager 
+
+        [Test]
+        public void TestTouch()
+        {
+            MainManager mainManager = new MainManager();
+          bool Touch = mainManager.isTouching;
+        
+
+        Assert.IsFalse(Touch);
         }
 
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
