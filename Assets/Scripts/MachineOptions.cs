@@ -2,24 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+// in report.....////.....
 namespace VRFP
 {
-    public class RemoveMachine : MonoBehaviour
+    public class MachineOptions : MonoBehaviour
     {
         Collider coll;
-        public Button button1;
+        public Button button;
         public AudioSource RemoveAudio;
         public GameObject MMenu;
+        public Text MachineInfo;
+        
+        public 
+        float AddDeg;
+        
         void Start()
         {
             coll = GetComponent<Collider>();
-
+           
         }
-        //hover
-        //options pannel follows person
-        //option 1 remove
-        //option 2 rotate
+        
         public void RemoveButton()
         {
             RemoveAudio.Play();
@@ -27,11 +29,27 @@ namespace VRFP
             MMenu.SetActive(false);
 
         }
-        public void RotateButton() {
-        //rotate 90
-        //rotate 45
-        
+
+        string ShowMachineInfo()
+        {
+            string Info = "";
+           
+            Info += "Machine Name " + gameObject.name + "“\r\n”";
+         
+            return Info;
         }
+
+      
+     
+        public void Rotate() {
+
+            AddDeg =+ 90.0f;
+            gameObject.transform.Rotate(0.0f, AddDeg, 0.0f, Space.Self);
+        }
+        
+
+  
+    
         public void Update()
         {
 
@@ -44,10 +62,11 @@ namespace VRFP
                 {
 
                      MMenu.SetActive(true);
+                    MachineInfo.text = ShowMachineInfo();
                     RemoveAudio.Play();
                    
 
-                    button1.GetComponent<Button>().interactable = true;
+                    button.GetComponent<Button>().interactable = true;
                 }
 
             }

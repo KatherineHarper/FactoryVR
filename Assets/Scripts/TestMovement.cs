@@ -16,23 +16,27 @@ namespace VRFP
             m_Renderer = gameObject.GetComponent<Renderer>();
             m_Renderer.material.color = Color.green;
         }
+
         void Update()
         {
 
             MovePosition();
 
         }
+
         void OnTriggerEnter(Collider other)
         {
 
             MainManager.Instance.isTouching = true;
             m_Renderer.material.color = Color.red;
         }
+
         void OnTriggerExit(Collider other)
         {
             MainManager.Instance.isTouching = false;
             m_Renderer.material.color = Color.green;
         }
+
 
         void MovePosition()
         {

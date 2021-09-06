@@ -9,6 +9,8 @@ namespace VRFP
     {
         public void ReturnButton()
         {
+            MainManager.Instance.isViewer = false;
+            
             SceneManager.LoadScene("Boot", LoadSceneMode.Single);
         }
     }

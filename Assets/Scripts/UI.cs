@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-//todo
-//rolling number
-//catch if no name bootui after enter button
-
-//
+// in report.....////.....
 namespace VRFP
 {
     public class UI : MonoBehaviour
     {
         public GameObject[] MachineList;
         //change to Text
-         string UserNameInput = MainManager.Instance.UserName;
-       
+        string UserNameInput;
+        public AudioSource CameraAudio;
+        public AudioSource LayoutAudio;
         JsonList jsonList = new JsonList();
         FactoryLayout layout = new FactoryLayout();
+        public GameObject CanvasEdit;
+        public GameObject CanvasView;
+        string Date;
+        public string Note;
+
         //VIEW UI
 
         string m_Message;
@@ -30,7 +32,15 @@ namespace VRFP
 
         void Start()
         {
-
+            if (MainManager.Instance.isViewer == true) {
+                CanvasView.SetActive(true);
+                CanvasEdit.SetActive(false);
+            }
+         
+            
+            
+            m_Text.text = MainManager.Instance.UserName;
+            UserNameInput = MainManager.Instance.UserName;
             List<string> list = jsonList.SearchName();
 
             Debug.Log(list);
@@ -41,22 +51,36 @@ namespace VRFP
 
 
             Debug.Log("Starting Dropdown Value : " + mDropdown.value);
+
         }
+
+
         public void LoadLayoutsB()
         {
-            //Keep the current index of the Dropdown in a variable
+
             m_DropdownValue = mDropdown.value;
-            //Change the message to say the name of the current Dropdown selection using the value
+
             m_Message = mDropdown.options[m_DropdownValue].text;
-            //Change the onscreen Text to reflect the current Dropdown selection
+
             ReadMachines(m_Message);
         }
 
-        public void MakeMachines()
-        {
 
-            //layout.UserName = MainManager.Instance.UserName;
-            layout.ID = 64;
+
+
+
+
+        public void SaveMachines()
+        {
+            layout.ID = layout.NextID;
+            layout.NextID++;
+           
+            layout.UserName = MainManager.Instance.UserName;
+            layout.Date = System.DateTime.Now.ToString();
+            
+
+            
+
 
             foreach (var item in MachineList)
             {
@@ -65,12 +89,14 @@ namespace VRFP
 
                     MachineName = item.name,
                     ActiveSelf = item.activeSelf,
-                    Vector3 = item.GetComponent<Transform>().position
+                    Vector3 = item.GetComponent<Transform>().position,
+                    YRot = item.GetComponent<Transform>().rotation.y
                 });
 
                 string json = JsonUtility.ToJson(layout);
                 File.WriteAllText(Application.dataPath + "/" + UserNameInput + ".json", json);
                 Debug.Log(layout.About()); ;
+                CameraAudio.Play();
             }
         }
 
@@ -79,10 +105,10 @@ namespace VRFP
 
 
 
-
-        public void PlaceMachines()
+        public void LoadMachines()
         {
             ReadMachines(UserNameInput);
+            LayoutAudio.Play();
         }
 
 
@@ -101,18 +127,19 @@ namespace VRFP
                         {
 
                             machine.transform.position = mas.Vector3;
+
                             machine.SetActive(mas.ActiveSelf);
+                            machine.transform.Rotate(0.0f, mas.YRot, 0.0f, Space.Self);
                         }
                     }
                 }
-
-
-
             }
         }
     }
-
 }
+
+
+ 
 
 
     

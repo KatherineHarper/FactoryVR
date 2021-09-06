@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+// in report.....////.....
 namespace VRFP
 {
     public class PlaceMachine : MonoBehaviour
@@ -32,7 +32,7 @@ namespace VRFP
 
 
             ptstrans = placetospawn.GetComponent<Transform>();
-            // GameObject[] Mlist = GameObject.FindGameObjectsWithTag("Machine");
+           
 
         }
 

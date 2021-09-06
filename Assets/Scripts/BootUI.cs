@@ -17,27 +17,22 @@ namespace VRFP
         User userData = new User();
         User user = new User();
         public Text UserName;
+        public bool isViewer;
         string UsersHere;
 
 
         public void Enter()
         {
             MainManager.Instance.UserName = UserName.text;
-            //CheckName();
+          
+            SceneManager.LoadScene("FactorySimulation", LoadSceneMode.Single);
+        }
+        public void EnterAsView()
+        {
+            MainManager.Instance.isViewer = true;
             SceneManager.LoadScene("FactorySimulation", LoadSceneMode.Single);
         }
 
-        void CheckName()
-        {
-            //if name in list
-            // List<string> list = jsonList.SearchName();
-
-            //if (userData.Contains(MainManager.Instance.UserName))
-            // {
-            //    SceneManager.LoadScene("FactorySimulation", LoadSceneMode.Single);
-            // }
-            // else { EnterDetailsPannel.SetActive(true); }
-        }
 
         public void SaveUserToFile()
         {
@@ -61,7 +56,7 @@ namespace VRFP
 
 
 
-       // [ {Obj 1}, {Obj 2} ]
+      
         public void GetUsersFromFile()
         {
             string path = Application.dataPath + "/" + "UsersHere" + ".json";
@@ -69,7 +64,7 @@ namespace VRFP
             {
                
                 string json = File.ReadAllText(path);
-               // User userData = JsonUtility.FromJson<User>(json);
+              
                  JsonUtility.FromJsonOverwrite(json, userData);
 
                 Debug.Log(userData.ID);

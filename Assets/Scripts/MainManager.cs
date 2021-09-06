@@ -8,10 +8,10 @@ namespace VRFP
     public class MainManager : MonoBehaviour
     {
         public bool isTouching = false;
-        public bool isEditor;
+        public bool isViewer = false;
         public string UserName;
         public static MainManager Instance;
-
+        
         public void Awake()
         {
 
